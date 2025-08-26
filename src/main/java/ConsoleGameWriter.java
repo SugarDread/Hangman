@@ -36,9 +36,9 @@ public class ConsoleGameWriter implements GameWriter{
         }
     }
 
-    public static void printWord(String word, Set<Character> userChar)
+    public static void printWord(Word word, Set<Character> userChar)
     {
-        for (char c : word.toCharArray())
+        for (char c : word.getWord().toCharArray())
         {
             if (userChar.contains(c))
             {
@@ -50,6 +50,7 @@ public class ConsoleGameWriter implements GameWriter{
             }
         }
         System.out.println("\n");
+        System.out.println("Hint: " + word.getHint());
     }
 
 }

@@ -28,8 +28,8 @@ public class Menu {
     private String chooseCategory(String choice)
     {
         return switch (choice) {
-            case "1" -> "ANIMALS";
-            case "2" -> "NAMES";
+            case "1" -> "ANIME";
+            case "2" -> "DEXTER NAMES";
             case "3" -> "RANDOM";
             default -> "RANDOM";
         };
@@ -39,7 +39,7 @@ public class Menu {
     {
         switch (input) {
             case Constants.START_GAME_OPTION:
-                System.out.print("Choose category\n1: ANIMALS\n2: NAMES\n3: RANDOM\n");
+                ConsoleGameWriter.printStream(Constants.CATEGORY_OPTIONS);
                 String category = chooseCategory(reader.readLine());
                 Game game = new Game(this.reader, category, difficulty);
                 game.startGame();
@@ -52,7 +52,7 @@ public class Menu {
             case Constants.EXIT_OPTION:
                 return false;
             default:
-                throw new IllegalArgumentException("Invalid option");
+                throw new IllegalArgumentException(Constants.INVALID_OPTION);
         }
     }
 }

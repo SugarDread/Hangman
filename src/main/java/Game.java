@@ -6,8 +6,8 @@ public class Game {
     private final Difficulty difficulty;
     private final InputReader reader;
     private boolean gameOver;
-    private HashSet<Character> userChar;
-    private HashSet<Character> requiredCharacters;
+    private final HashSet<Character> userChar;
+    private final HashSet<Character> requiredCharacters;
 
     public Game(InputReader reader, String category, Difficulty difficulty)
     {
@@ -30,7 +30,7 @@ public class Game {
         while (!gameOver)
         {   
             ConsoleGameWriter.printGameStages(fails);
-            ConsoleGameWriter.printWord(word.getWord(), userChar);
+            ConsoleGameWriter.printWord(word, userChar);
             String input = word.userInput(reader);
             logic(input);
         }

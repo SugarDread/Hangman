@@ -1,9 +1,14 @@
 public class Constants {
     //Menu
-    public static final String MENU_OPTIONS = "1: Start a game\n2: Change difficulty\n3: Exit\n";
+    public static final String MENU_OPTIONS = "1: Start a game\n2: Change difficulty\n3: Exit";
+    public static final String CATEGORY_OPTIONS = "Choose category\n1: ANIME\n2: DEXTER NAMES\n3: RANDOM";
     public static final String START_GAME_OPTION = "1";
     public static final String CHANGE_DIFFICULTY_OPTION = "2";
     public static final String EXIT_OPTION = "3";
+
+    //Errors
+    public static final String INVALID_OPTION = "Invalid option";
+    public static final String JSON_FAIL = "Failed to load words from JSON";
 
     //Game
     public static final int FAILS_EASY = 1;

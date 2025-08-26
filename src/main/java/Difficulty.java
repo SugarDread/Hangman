@@ -10,14 +10,8 @@ public enum Difficulty {
         this.index = index;
         this.value = value;
     }
-    public String getIndex()
-    {
-        return index;
-    }
-    public int getValue()
-    {
-        return value;
-    }
+    public String getIndex() {return index;}
+    public int getValue() {return value;}
     public static Difficulty fromIndex(String index)
     {
         for (Difficulty d : values())
