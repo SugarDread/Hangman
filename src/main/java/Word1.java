@@ -1,0 +1,2 @@
+public record Word1() {
+}

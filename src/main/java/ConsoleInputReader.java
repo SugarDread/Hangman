@@ -1,0 +1,10 @@
+import java.util.Scanner;
+
+public class ConsoleInputReader implements InputReader {
+    private final Scanner scanner;
+
+    public ConsoleInputReader(Scanner scanner) {this.scanner = scanner;}
+
+    public String readLine() {return this.scanner.nextLine();}
+
+}
