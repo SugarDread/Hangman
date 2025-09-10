@@ -1,3 +1,11 @@
+package game;
+
+import constants.Constants;
+import io.InputReader;
+import models.Difficulty;
+import models.Word;
+import io.GameWriter;
+
 import java.util.HashSet;
 
 public class Game {
@@ -5,19 +13,23 @@ public class Game {
     private final Word word;
     private final Difficulty difficulty;
     private final InputReader reader;
+    private final GameWriter writer;
     private boolean gameOver;
     private final HashSet<Character> userChar;
     private final HashSet<Character> requiredCharacters;
+    private boolean hint;
 
-    public Game(InputReader reader, String category, Difficulty difficulty)
+    public Game(InputReader reader, GameWriter writer, String category, Difficulty difficulty)
     {
+        this.hint = false;
         this.fails = 0;
         this.difficulty = difficulty;
         this.reader = reader;
+        this.writer = writer;
         this.word = new Word(category);
         this.gameOver = false;
-        this.userChar = new HashSet<Character>();
-        this.requiredCharacters = new HashSet<Character>();
+        this.userChar = new HashSet<>();
+        this.requiredCharacters = new HashSet<>();
         for (char c : this.word.getWord().toCharArray())
         {
             this.requiredCharacters.add(Character.toUpperCase(c));
@@ -29,26 +41,31 @@ public class Game {
     {
         while (!gameOver)
         {   
-            ConsoleGameWriter.printGameStages(fails);
-            ConsoleGameWriter.printWord(word, userChar);
+            writer.printGameStages(fails);
+            writer.printWord(word, userChar);
+            writer.printHint(word, hint);
             String input = word.userInput(reader);
             logic(input);
         }
-        if (fails < Constants.FAILS_GAMEOVER) {ConsoleGameWriter.printStream(Constants.WIN);}
+        if (fails < Constants.FAILS_GAMEOVER) {writer.printString(Constants.WIN);}
         else 
         {
-            ConsoleGameWriter.printGameStages(Constants.FAILS_GAMEOVER);
-            ConsoleGameWriter.printStream(word.getWord());
-            ConsoleGameWriter.printStream(Constants.LOSE);
+            writer.printGameStages(Constants.FAILS_GAMEOVER);
+            writer.printString(word.getWord());
+            writer.printString(Constants.LOSE);
         }
 
     }
 
     private void logic(String s)
     {
+        if (s.equals("Hint")) {
+            hint = !hint;
+            return;
+        }
         if (s.length() != 1)
         {
-            ConsoleGameWriter.printStream(Constants.WRONG_INPUT);
+            writer.printString(Constants.WRONG_INPUT);
             return;
         }
         boolean failed = true;
@@ -60,7 +77,7 @@ public class Game {
             userChar.add(input);
             failed = false;
         }
-        if (failed) {fails += this.difficulty.getValue();}
+        if (failed) { fails += this.difficulty.getValue(); }
         if (fails >= Constants.FAILS_GAMEOVER || requiredCharacters.isEmpty()) {gameOver = true;}
     }
 }

@@ -1,10 +1,19 @@
+package game;
+
+import constants.Constants;
+import io.GameWriter;
+import io.InputReader;
+import models.Difficulty;
+
 public class Menu {
     private Difficulty difficulty = Difficulty.MEDIUM;
     private final InputReader reader;
+    private final GameWriter writer;
 
-    public Menu(InputReader reader)
+    public Menu(InputReader reader, GameWriter writer)
     {
         this.reader = reader;
+        this.writer = writer;
     }
     
     public void run()
@@ -12,7 +21,7 @@ public class Menu {
         boolean isrunning = true;
         while (isrunning)
         {
-            ConsoleGameWriter.printMenu();
+            writer.printList(Constants.MENU_OPTIONS);
             String input = reader.readLine();
             isrunning = handleInput(input);
         }
@@ -20,9 +29,9 @@ public class Menu {
 
     private void changeDifficulty()
     {
-        ConsoleGameWriter.printDifficulty();
+        writer.printDifficulty();
         String choice = reader.readLine();
-        this.difficulty = Difficulty.fromIndex(choice);
+        this.difficulty = Difficulty.values()[Integer.parseInt(choice) - 1];
     }
 
     private String chooseCategory(String choice)
@@ -39,9 +48,9 @@ public class Menu {
     {
         switch (input) {
             case Constants.START_GAME_OPTION:
-                ConsoleGameWriter.printStream(Constants.CATEGORY_OPTIONS);
+                writer.printList(Constants.CATEGORY_OPTIONS);
                 String category = chooseCategory(reader.readLine());
-                Game game = new Game(this.reader, category, difficulty);
+                Game game = new Game(this.reader, this.writer, category, difficulty);
                 game.startGame();
                 return true;
             
@@ -52,7 +61,8 @@ public class Menu {
             case Constants.EXIT_OPTION:
                 return false;
             default:
-                throw new IllegalArgumentException(Constants.INVALID_OPTION);
+                writer.printString(Constants.INVALID_OPTION);
+                return true;
         }
     }
 }
