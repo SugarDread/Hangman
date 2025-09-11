@@ -2,7 +2,8 @@ package io;
 
 
 public interface InputReader {
-    String readLine();
+    Integer readInt(GameWriter writer);
+    String readStr();
 }
 
 

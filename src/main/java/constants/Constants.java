@@ -13,6 +13,7 @@ public class Constants {
     //Errors
     public static final String INVALID_OPTION = "Invalid option";
     public static final String JSON_FAIL = "Failed to load words from JSON";
+    public static final String INT_FAIL = "User's input must be an integer";
 
     //game.Game
     public static final int FAILS_GAMEOVER = 9;

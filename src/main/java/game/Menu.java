@@ -22,7 +22,7 @@ public class Menu {
         while (isrunning)
         {
             writer.printList(Constants.MENU_OPTIONS);
-            String input = reader.readLine();
+            String input = reader.readStr();
             isrunning = handleInput(input);
         }
     }
@@ -30,8 +30,15 @@ public class Menu {
     private void changeDifficulty()
     {
         writer.printDifficulty();
-        String choice = reader.readLine();
-        this.difficulty = Difficulty.values()[Integer.parseInt(choice) - 1];
+        int choice = reader.readInt(writer);
+        if (choice < Difficulty.values().length & choice != -1)
+        {
+            this.difficulty = Difficulty.values()[choice - 1];
+        }
+        else
+        {
+            writer.printString(Constants.INVALID_OPTION);
+        }
     }
 
     private String chooseCategory(String choice)
@@ -49,7 +56,7 @@ public class Menu {
         switch (input) {
             case Constants.START_GAME_OPTION:
                 writer.printList(Constants.CATEGORY_OPTIONS);
-                String category = chooseCategory(reader.readLine());
+                String category = chooseCategory(reader.readStr());
                 Game game = new Game(this.reader, this.writer, category, difficulty);
                 game.startGame();
                 return true;

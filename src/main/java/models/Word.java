@@ -34,7 +34,7 @@ public class Word {
     public String userInput(InputReader reader)
     {
         System.out.print("Type a character: ");
-        return reader.readLine();
+        return reader.readStr();
     }
 
     public WordEntry randWord(String category) {
