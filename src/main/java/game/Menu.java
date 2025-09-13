@@ -10,39 +10,31 @@ public class Menu {
     private final InputReader reader;
     private final GameWriter writer;
 
-    public Menu(InputReader reader, GameWriter writer)
-    {
+    public Menu(InputReader reader, GameWriter writer) {
         this.reader = reader;
         this.writer = writer;
     }
-    
-    public void run()
-    {
+
+    public void run() {
         boolean isrunning = true;
-        while (isrunning)
-        {
+        while (isrunning) {
             writer.printList(Constants.MENU_OPTIONS);
             String input = reader.readStr();
             isrunning = handleInput(input);
         }
     }
 
-    private void changeDifficulty()
-    {
-        writer.printDifficulty();
+    private void changeDifficulty() {
+        writer.printEnumList(difficulty);
         int choice = reader.readInt(writer);
-        if (choice < Difficulty.values().length & choice != -1)
-        {
+        if (choice < Difficulty.values().length && choice > 0) {
             this.difficulty = Difficulty.values()[choice - 1];
-        }
-        else
-        {
+        } else {
             writer.printString(Constants.INVALID_OPTION);
         }
     }
 
-    private String chooseCategory(String choice)
-    {
+    private String chooseCategory(String choice) {
         return switch (choice) {
             case "1" -> "ANIME";
             case "2" -> "DEXTER NAMES";
@@ -51,8 +43,7 @@ public class Menu {
         };
     }
 
-    private boolean handleInput(String input)
-    {
+    private boolean handleInput(String input) {
         switch (input) {
             case Constants.START_GAME_OPTION:
                 writer.printList(Constants.CATEGORY_OPTIONS);
@@ -60,11 +51,11 @@ public class Menu {
                 Game game = new Game(this.reader, this.writer, category, difficulty);
                 game.startGame();
                 return true;
-            
+
             case Constants.CHANGE_DIFFICULTY_OPTION:
                 changeDifficulty();
                 return true;
-            
+
             case Constants.EXIT_OPTION:
                 return false;
             default:

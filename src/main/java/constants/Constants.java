@@ -3,7 +3,7 @@ package constants;
 import java.util.List;
 
 public class Constants {
-    //game.Menu
+    //Menu
     public static final List<String> MENU_OPTIONS = List.of("Start a game", "Change difficulty", "Exit");
     public static final List<String> CATEGORY_OPTIONS = List.of("ANIME", "DEXTER NAMES", "RANDOM");
     public static final String START_GAME_OPTION = "1";
@@ -15,14 +15,14 @@ public class Constants {
     public static final String JSON_FAIL = "Failed to load words from JSON";
     public static final String INT_FAIL = "User's input must be an integer";
 
-    //game.Game
+    //Game
     public static final int FAILS_GAMEOVER = 9;
     public static final String WIN = "===YOU WIN===";
     public static final String LOSE = "===YOU LOSE===";
     public static final String WRONG_INPUT = "Wrong input! Try again";
-
-    //models.Word
     public static final String DASH = "_";
+    public static final String HINT = "Type 'Hint' to see or remove the hint";
+    public static final String NEW_LINE = "\n";
 
     //GameStages
     public static final String[] GAME_STAGES = {
@@ -127,7 +127,6 @@ public class Constants {
                          |
                         ---------------"""
     };
-
 
 
 }

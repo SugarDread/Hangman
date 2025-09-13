@@ -19,8 +19,7 @@ public class Game {
     private final HashSet<Character> requiredCharacters;
     private boolean hint;
 
-    public Game(InputReader reader, GameWriter writer, String category, Difficulty difficulty)
-    {
+    public Game(InputReader reader, GameWriter writer, String category, Difficulty difficulty) {
         this.hint = false;
         this.fails = 0;
         this.difficulty = difficulty;
@@ -30,54 +29,74 @@ public class Game {
         this.gameOver = false;
         this.userChar = new HashSet<>();
         this.requiredCharacters = new HashSet<>();
-        for (char c : this.word.getWord().toCharArray())
-        {
+        for (char c : this.word.getWord().toCharArray()) {
             this.requiredCharacters.add(Character.toUpperCase(c));
         }
     }
 
-    
-    public void startGame()
-    {
-        while (!gameOver)
-        {   
-            writer.printGameStages(fails);
-            writer.printWord(word, userChar);
-            writer.printHint(word, hint);
+
+    public void startGame() {
+        while (!gameOver) {
+            printGameStages(fails);
+            printWord();
+            printHint();
             String input = word.userInput(reader);
             logic(input);
         }
-        if (fails < Constants.FAILS_GAMEOVER) {writer.printString(Constants.WIN);}
-        else 
-        {
-            writer.printGameStages(Constants.FAILS_GAMEOVER);
+        if (fails < Constants.FAILS_GAMEOVER) {
+            writer.printString(Constants.WIN);
+        } else {
+            printGameStages(Constants.FAILS_GAMEOVER);
             writer.printString(word.getWord());
             writer.printString(Constants.LOSE);
         }
 
     }
 
-    private void logic(String s)
-    {
+    private void logic(String s) {
         if (s.equals("Hint")) {
             hint = !hint;
             return;
         }
-        if (s.length() != 1)
-        {
+        if (s.length() != 1) {
             writer.printString(Constants.WRONG_INPUT);
             return;
         }
         boolean failed = true;
         char input = s.charAt(0);
         input = Character.toUpperCase(input);
-        if (requiredCharacters.contains(input))
-        {
+        if (requiredCharacters.contains(input)) {
             requiredCharacters.remove(input);
             userChar.add(input);
             failed = false;
         }
-        if (failed) { fails += this.difficulty.getValue(); }
-        if (fails >= Constants.FAILS_GAMEOVER || requiredCharacters.isEmpty()) {gameOver = true;}
+        if (failed) {
+            fails += this.difficulty.getValue();
+        }
+        if (fails >= Constants.FAILS_GAMEOVER || requiredCharacters.isEmpty()) {
+            gameOver = true;
+        }
+    }
+
+    private void printGameStages(int fails) {
+        writer.printString(Constants.GAME_STAGES[fails]);
+    }
+
+    private void printHint() {
+        if (hint) {
+            writer.printString(word.getHint());
+        }
+    }
+
+    private void printWord() {
+        for (char c : word.getWord().toCharArray()) {
+            if (userChar.contains(c)) {
+                writer.printString(Character.toString(c));
+            } else {
+                writer.printString(Constants.DASH);
+            }
+        }
+        writer.printString(Constants.NEW_LINE);
+        writer.printStringLine(Constants.HINT);
     }
 }

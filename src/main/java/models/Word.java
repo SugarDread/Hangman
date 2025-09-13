@@ -1,7 +1,9 @@
 package models;
+
 import constants.Constants;
 import io.InputReader;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -24,15 +26,13 @@ public class Word {
         }
     }
 
-    public Word(String category)
-    {
+    public Word(String category) {
         WordEntry entry = randWord(category);
         this.word = entry.word();
         this.hint = entry.hint();
     }
 
-    public String userInput(InputReader reader)
-    {
+    public String userInput(InputReader reader) {
         System.out.print("Type a character: ");
         return reader.readStr();
     }

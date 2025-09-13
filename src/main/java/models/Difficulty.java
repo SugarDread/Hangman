@@ -6,9 +6,12 @@ public enum Difficulty {
     HARD(3);
 
     private final int value;
-    Difficulty(int value)
-    {
+
+    Difficulty(int value) {
         this.value = value;
     }
-    public int getValue() {return value;}
+
+    public int getValue() {
+        return value;
+    }
 }

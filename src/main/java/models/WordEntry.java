@@ -1,3 +1,4 @@
 package models;
 
-public record WordEntry(String category, String word, String hint) {}
+public record WordEntry(String category, String word, String hint) {
+}
