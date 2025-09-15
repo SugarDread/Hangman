@@ -1,16 +1,17 @@
 package io;
 
+import constants.Constants;
+
 import java.io.BufferedReader;
 import java.io.IOException;
-
-import constants.Constants;
-import io.GameWriter;
 
 public class ConsoleInputReader implements InputReader {
 
     private final BufferedReader reader;
 
-    public ConsoleInputReader(BufferedReader reader) {this.reader = reader;}
+    public ConsoleInputReader(BufferedReader reader) {
+        this.reader = reader;
+    }
 
     @Override
     public String readStr() {
@@ -25,18 +26,11 @@ public class ConsoleInputReader implements InputReader {
     public Integer readInt(GameWriter writer) {
         try {
             return Integer.parseInt(this.reader.readLine());
-        } catch (Exception e) {
-            if (e instanceof NumberFormatException)
-            {
-                writer.printString(Constants.INT_FAIL);
-                return -1;
-            }
-            else
-            {
-                throw new RuntimeException(e);
-            }
+        } catch (NumberFormatException e) {
+            writer.printString(Constants.INT_FAIL);
+            return -1;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
-
-
 }
